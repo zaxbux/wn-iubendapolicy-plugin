@@ -11,6 +11,10 @@
 			'iubendaPolicy' => [
 				'name' => 'Iubenda Policy',
 				'description' => 'Display your Iubenda privacy policy.'
+			],
+			'iubendaCookiePolicy' => [
+				'name' => 'Iubenda Cookie Policy',
+				'description' => 'Display your Iubenda Cookie policy.'
 			]
 		],
 		'fields' => [
@@ -25,7 +29,7 @@
 			],
 			'policy_style' => [
 				'label' => 'Policy Style',
-				'comment' => 'How the privacy polcy should be displayed.',
+				'comment' => 'How the privacy policy should be displayed.',
 				'options' => [
 					'default' => 'Default',
 					'only-legal' => 'Only legal',

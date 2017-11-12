@@ -11,6 +11,7 @@ use Wackywired135\IubendaPolicyCacher\Models\Settings;
 class IubendaCache {
 
 	private $cacheKey;
+	private $cacheCookieKey;
 	private $policyId;
 	private $policyStyle;
 
@@ -21,6 +22,7 @@ class IubendaCache {
 		$this->policyStyle = str_replace('default', '', $policyStyle);
 
 		$this->cacheKey = sprintf('iubenda_policy_%s_content', $this->policyId);
+		$this->cacheCookieKey = sprintf('iubenda_cookie_policy_%s_content', $this->policyId);
 	}
 
 	/**
@@ -33,9 +35,41 @@ class IubendaCache {
 			return;
 		}
 		
-		// Download policy from Iubenda
+		// Download privacy policy from Iubenda
 		$guzzle = new GuzzleClient();
 		$response = $guzzle->get(sprintf('https://www.iubenda.com/api/privacy-policy/%s/%s', $this->policyId, $this->policyStyle), ['http_errors' => false]);
+		$policyJson = json_decode($response->getBody(), true);
+
+		if ($policyJson['success'] == false) {
+			// An error beyond our control
+			if ($response->getStatusCode() === 500) {
+				return;
+			}
+
+			// Incorrect settings
+			return 'ERROR: '.$policyJson['error'];
+		}
+
+		// Success!
+		return $policyJson['content'];
+	}
+
+	/**
+	 * Retrive a fresh version of the privacy policy from Iubenda
+	 */
+	 public function fetchCookiePolicy() {
+		
+		// Cannot continue without a policy ID
+		if (empty($this->policyId)) {
+			return;
+		}
+
+		// Only two options are available for the cookie policy
+		$policyStyle = str_replace('only-legal', 'no-markup', $this->policyStyle);
+		
+		// Download cookie policy from Iubenda
+		$guzzle = new GuzzleClient();
+		$response = $guzzle->get(sprintf('https://www.iubenda.com/api/privacy-policy/%s/cookie-policy/%s', $this->policyId, $policyStyle), ['http_errors' => false]);
 		$policyJson = json_decode($response->getBody(), true);
 
 		if ($policyJson['success'] == false) {
@@ -57,6 +91,7 @@ class IubendaCache {
 	 */
 	public function update() {
 		Cache::forever($this->cacheKey, self::fetchPolicy());
+		Cache::forever($this->cacheCookieKey, self::fetchCookiePolicy());
 	}
 
 	/**
@@ -85,9 +120,35 @@ class IubendaCache {
 	}
 
 	/**
+	 * Get the policy from the cache
+	 */
+	 public function getCookiePolicy() {
+		// No policy ID, usually when plugin is activated for the first time
+		if ($this->policyId == null) {
+			return 'ERROR: No policy ID configured.';
+		}
+
+		// Get the policy from cache
+		$policyContent = Cache::get($this->cacheCookieKey, null);
+
+		if ($policyContent) {
+			return $policyContent;
+		}
+
+		// No policy in the cache, fetch a fresh version
+		$policyContent = self::fetchCookiePolicy();
+
+		// Update the cache
+		Cache::forever($this->cacheCookieKey, $policyContent);
+
+		return $policyContent;
+	}
+
+	/**
 	 * Remove the policy from the cache
 	 */
 	public function forgetPolicy() {
 		Cache::forget($this->cacheKey);
+		Cache::forget($this->cacheCookieKey);
 	}
 }

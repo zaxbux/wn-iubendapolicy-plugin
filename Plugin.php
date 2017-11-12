@@ -29,6 +29,7 @@ class Plugin extends PluginBase {
 	public function registerComponents() {
 		return [
 			'Wackywired135\IubendaPolicyCacher\Components\IubendaPolicy' => 'IubendaPolicy',
+			'Wackywired135\IubendaPolicyCacher\Components\IubendaCookiePolicy' => 'IubendaCookiePolicy',
 		];
 	}
 
