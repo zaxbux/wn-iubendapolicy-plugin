@@ -17,7 +17,7 @@ How you want your policy to be displayed.
 * **No markup**: Similar to 'Only legal', no extra markup or CSS
 
 ## Policy Component
-The Iubenda Policy component allows your privacy policy to be displayed on any page.
+The `IubendaPolicy` component allows your privacy policy to be displayed on any page.
 ```
 title = "Privacy Policy"
 url = "/privacy"
@@ -26,9 +26,22 @@ url = "/privacy"
 ==
 {% component 'IubendaPolicy' %}
 ```
-Any errors will be dsiplayed in place of your policy.
+Any errors will be displayed in place of your policy.
+
+## CookiePolicy Component
+The `IubendaCookiePolicy` component allows your cookie policy to be displayed on any page.
+```
+title = "Cookie Policy"
+url = "/cookies"
+
+[IubendaCookiePolicy]
+==
+{% component 'IubendaCookiePolicy' %}
+```
+Any errors will be displayed in place of your policy.
 
 ## Change Log
+* 1.0.4 - Added support for cookie policy
 * 1.0.3 - Localization improvements
 * 1.0.2 - Refactored code
 * 1.0.1 - First version
