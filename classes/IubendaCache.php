@@ -51,7 +51,8 @@ class IubendaCache {
 		}
 
 		// Success!
-		return $policyJson['content'];
+		$html = iconv('UTF-8', 'ASCII//TRANSLIT', $policyJson['content']); // Convert irregular quotes
+		return $html;
 	}
 
 	/**
@@ -82,8 +83,21 @@ class IubendaCache {
 			return 'ERROR: '.$policyJson['error'];
 		}
 
-		// Success!
-		return $policyJson['content'];
+		// Success! Parse HTML without doctype
+		$html = iconv('UTF-8', 'ASCII//TRANSLIT', $policyJson['content']); // Convert irregular quotes
+
+		$document = new \DOMDocument();
+		$internalErrors = libxml_use_internal_errors(true);
+		$document->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
+		libxml_use_internal_errors($internalErrors); // Restore error level
+
+		// remove "view complete policy" link
+		$xpath = new \DOMXPath($document);
+		foreach ($xpath->query('//div[contains(attribute::class, "iub_footer")]/a[contains(attribute::class, "show_comp_link")]') as $element) {
+			$element->parentNode->removeChild($element);
+		}
+
+		return $document->saveHTML($document->documentElement);
 	}
 
 	/**
@@ -100,7 +114,7 @@ class IubendaCache {
 	public function getPolicy() {
 		// No policy ID, usually when plugin is activated for the first time
 		if ($this->policyId == null) {
-			return 'ERROR: No policy ID configured.';
+			return 'ERROR: No policy ID set.';
 		}
 
 		// Get the policy from cache
@@ -125,7 +139,7 @@ class IubendaCache {
 	 public function getCookiePolicy() {
 		// No policy ID, usually when plugin is activated for the first time
 		if ($this->policyId == null) {
-			return 'ERROR: No policy ID configured.';
+			return 'ERROR: No policy ID set.';
 		}
 
 		// Get the policy from cache
