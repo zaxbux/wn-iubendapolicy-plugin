@@ -78,8 +78,8 @@ class Plugin extends PluginBase {
 	 * @{inheritDoc}
 	 */
 	public function register() {
-		$this->registerConsoleCommand('zaxbux.iubendapolicy.update', 'Zaxbux\\IubendaPolicy\\Update');
-		$this->registerConsoleCommand('zaxbux.iubendapolicy.forget', 'Zaxbux\\IubendaPolicy\\Forget');
+		$this->registerConsoleCommand('zaxbux.iubendapolicy.update', 'Zaxbux\\IubendaPolicy\\Console\\Update');
+		$this->registerConsoleCommand('zaxbux.iubendapolicy.forget', 'Zaxbux\\IubendaPolicy\\Console\\Forget');
 	}
 
 	/**
