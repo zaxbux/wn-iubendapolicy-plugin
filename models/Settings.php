@@ -23,8 +23,8 @@ class Settings extends Model {
 
 	// Validation error messages
 	public $customMessages = [
-		'policy_id.required' => 'zaxbux.iubendaprivacypolicy::lang.fields.policy_id.validation.required',
-		'policy_id.numeric'  => 'zaxbux.iubendaprivacypolicy::lang.fields.policy_id.validation.numeric'
+		'policy_id.required' => 'zaxbux.iubendapolicy::lang.fields.policy_id.validation.required',
+		'policy_id.numeric'  => 'zaxbux.iubendapolicy::lang.fields.policy_id.validation.numeric'
 	];
 
 	/*

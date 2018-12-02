@@ -17,8 +17,8 @@ class Plugin extends PluginBase {
 	 */
 	public function pluginDetails() {
 		return [
-			'name'        => 'zaxbux.iubendaprivacypolicy::lang.plugin.name',
-			'description' => 'zaxbux.iubendapolicycacher::lang.plugin.description',
+			'name'        => 'zaxbux.iubendapolicy::lang.plugin.name',
+			'description' => 'zaxbux.iubendapolicy::lang.plugin.description',
 			'author'      => 'zaxbux',
 			'icon'        => 'oc-icon-shield',
 			'homepage'    => 'https://www.zacharyschneider.ca/'
@@ -40,9 +40,9 @@ class Plugin extends PluginBase {
 	 */
 	public function registerPermissions() {
 		return [
-			'zaxbux.iubendaprivacypolicy.access_settings' => [
-				'tab'   => 'zaxbux.iubendaprivacypolicy::lang.permissions.tab',
-				'label' => 'zaxbux.iubendaprivacypolicy::lang.permissions.label'
+			'zaxbux.iubendapolicy.access_settings' => [
+				'tab'   => 'zaxbux.iubendapolicy::lang.permissions.tab',
+				'label' => 'zaxbux.iubendapolicy::lang.permissions.label'
 			]
 		];
 	}
@@ -58,7 +58,7 @@ class Plugin extends PluginBase {
 				'description' => 'Manage your Iubenda policy configuration.',
 				'class'       => 'Zaxbux\IubendaPolicy\Models\Settings',
 				'order'       => '600',
-				'permissions' => ['zaxbux.iubendaprivacypolicy.access_settings'],
+				'permissions' => ['zaxbux.iubendapolicy.access_settings'],
 			]
 		];
 	}
