@@ -77,6 +77,14 @@ class Plugin extends PluginBase {
 	/**
 	 * @{inheritDoc}
 	 */
+	public function register() {
+		$this->registerConsoleCommand('zaxbux.iubendapolicy.update', 'Zaxbux\\IubendaPolicy\\Update');
+		$this->registerConsoleCommand('zaxbux.iubendapolicy.forget', 'Zaxbux\\IubendaPolicy\\Forget');
+	}
+
+	/**
+	 * @{inheritDoc}
+	 */
 	public function boot() {
 		// Include Guzzle
 		set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/vendor/guzzlehttp/guzzle/src');
