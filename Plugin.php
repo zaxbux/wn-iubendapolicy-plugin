@@ -1,12 +1,14 @@
-<?php namespace Wackywired135\IubendaPolicyCacher;
+<?php
+
+namespace Zaxbux\IubendaPolicy;
 
 use System\Classes\PluginBase;
-use Wackywired135\IubendaPolicyCacher\Models\Settings;
-use Wackywired135\IubendaPolicyCacher\Classes\IubendaCache;
+use Zaxbux\IubendaPolicy\Models\Settings;
+use Zaxbux\IubendaPolicy\Classes\PolicyCache;
 
 /**
- * Plugin class for Iubenda Policy Cacher
- * @author wackywired135
+ * Plugin class for Iubenda Policy
+ * @author zaxbux
  */
 class Plugin extends PluginBase {
 
@@ -15,11 +17,11 @@ class Plugin extends PluginBase {
 	 */
 	public function pluginDetails() {
 		return [
-			'name' => 'wackywired135.iubendapolicycacher::lang.plugin.name',
-			'description' => 'wackywired135.iubendapolicycacher::lang.plugin.description',
-			'author' => 'wackywired135',
-			'icon' => 'oc-icon-shield',
-			'homepage' => 'https://www.zacharyschneider.ca/projects'
+			'name'        => 'zaxbux.iubendaprivacypolicy::lang.plugin.name',
+			'description' => 'zaxbux.iubendapolicycacher::lang.plugin.description',
+			'author'      => 'zaxbux',
+			'icon'        => 'oc-icon-shield',
+			'homepage'    => 'https://www.zacharyschneider.ca/'
 		];
 	}
 
@@ -28,8 +30,8 @@ class Plugin extends PluginBase {
 	 */
 	public function registerComponents() {
 		return [
-			'Wackywired135\IubendaPolicyCacher\Components\IubendaPolicy' => 'IubendaPolicy',
-			'Wackywired135\IubendaPolicyCacher\Components\IubendaCookiePolicy' => 'IubendaCookiePolicy',
+			'Zaxbux\IubendaPolicy\Components\IubendaPrivacyPolicy' => 'iubendaPrivacyPolicy',
+			'Zaxbux\IubendaPolicy\Components\IubendaCookiePolicy'  => 'iubendaCookiePolicy',
 		];
 	}
 
@@ -38,9 +40,9 @@ class Plugin extends PluginBase {
 	 */
 	public function registerPermissions() {
 		return [
-			'wackywired135.iubendapolicycacher.access_settings' => [
-				'tab'   => 'wackywired135.iubendapolicycacher::lang.permissions.tab',
-				'label' => 'wackywired135.iubendapolicycacher::lang.permissions.label'
+			'zaxbux.iubendaprivacypolicy.access_settings' => [
+				'tab'   => 'zaxbux.iubendaprivacypolicy::lang.permissions.tab',
+				'label' => 'zaxbux.iubendaprivacypolicy::lang.permissions.label'
 			]
 		];
 	}
@@ -51,12 +53,12 @@ class Plugin extends PluginBase {
   public function registerSettings() {
 		return [
 			'config' => [
-				'label' => 'Iubenda Policy Cacher',
-				'icon' => 'icon-shield',
-				'description' => 'Manage your Iubenda privacy policy configuration.',
-				'class' => 'Wackywired135\IubendaPolicyCacher\Models\Settings',
-				'order' => '600',
-				'permissions' => ['wackywired135.iubendapolicycacher.access_settings'],
+				'label'       => 'Iubenda Policy',
+				'icon'        => 'icon-shield',
+				'description' => 'Manage your Iubenda policy configuration.',
+				'class'       => 'Zaxbux\IubendaPolicy\Models\Settings',
+				'order'       => '600',
+				'permissions' => ['zaxbux.iubendaprivacypolicy.access_settings'],
 			]
 		];
 	}
@@ -65,10 +67,9 @@ class Plugin extends PluginBase {
 	 * @{inheritDoc}
 	 */
 	public function registerSchedule($schedule) {
-
 		// Download and cache the policy on a daily basis
 		$schedule->call(function() {
-			$cache = new IubendaCache;
+			$cache = new PolicyCache();
 			$cache->update();
 		})->daily();
 	}
@@ -81,11 +82,18 @@ class Plugin extends PluginBase {
 		set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/vendor/guzzlehttp/guzzle/src');
 
 		// Clear the policy cache when settings are saved
+		// This takes care of policy ID changes, and allows the policy cache to be cleared on demand
 		Settings::extend(function($model) {
-			$model->bindEvent('model.beforeSave', function() use ($model) {
-				$cache = new IubendaCache;
-				$cache->forgetPolicy();
+			$model->bindEvent('model.beforeSave', function () {
+				$cache = new PolicyCache();
+				$cache->forget();
+			});
+
+			$model->bindEvent('model.afterSave', function () {
+				$cache = new PolicyCache();
+				$cache->update();
 			});
 		});
 	}
 }
+

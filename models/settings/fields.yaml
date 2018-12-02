@@ -2,19 +2,16 @@ fields:
 # Required attributes
   policy_id:
     span: left
-    label: wackywired135.iubendapolicycacher::lang.fields.policy_id.label
-    comment: wackywired135.iubendapolicycacher::lang.fields.policy_id.comment
+    label: zaxbux.iubendaprivacypolicy::lang.fields.policy_id.label
+    comment: zaxbux.iubendaprivacypolicy::lang.fields.policy_id.comment
     type: text
     required: true
-    attributes:
-      minlength: 6
-      maxlength: 6
   policy_style:
     span: right
-    label: wackywired135.iubendapolicycacher::lang.fields.policy_style.label
-    comment: wackywired135.iubendapolicycacher::lang.fields.policy_style.comment
+    label: zaxbux.iubendaprivacypolicy::lang.fields.policy_style.label
+    comment: zaxbux.iubendaprivacypolicy::lang.fields.policy_style.comment
     type: dropdown
     options:
-      default: wackywired135.iubendapolicycacher::lang.fields.policy_style.options.default
-      only-legal: wackywired135.iubendapolicycacher::lang.fields.policy_style.options.only-legal
-      no-markup: wackywired135.iubendapolicycacher::lang.fields.policy_style.options.no-markup
+      default: zaxbux.iubendaprivacypolicy::lang.fields.policy_style.options.default
+      only-legal: zaxbux.iubendaprivacypolicy::lang.fields.policy_style.options.only-legal
+      no-markup: zaxbux.iubendaprivacypolicy::lang.fields.policy_style.options.no-markup

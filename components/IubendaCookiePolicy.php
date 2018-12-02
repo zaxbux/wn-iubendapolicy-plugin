@@ -1,20 +1,20 @@
 <?php
 
-namespace Wackywired135\IubendaPolicyCacher\Components;
+namespace Zaxbux\IubendaPolicy\Components;
 
 use Cms\Classes\ComponentBase;
-use Wackywired135\IubendaPolicyCacher\Classes\IubendaCache;
+use Zaxbux\IubendaPolicy\Classes\PolicyCache;
 
 class IubendaCookiePolicy extends ComponentBase {
 	public function componentDetails() {
 		return [
-			'name' => 'wackywired135.iubendapolicycacher::lang.components.iubendaCookiePolicy.name',
-			'description' => 'wackywired135.iubendapolicycacher::lang.components.iubendaCookiePolicy.description'
+			'name'        => 'zaxbux.iubendapolicy::lang.components.iubendaCookiePolicy.name',
+			'description' => 'zaxbux.iubendapolicy::lang.components.iubendaCookiePolicy.description'
 		];
 	}
 
 	public function policyContent() {
-		$cache = new IubendaCache;
+		$cache = new PolicyCache();
 
 		return $cache->getCookiePolicy();
 	}

@@ -1,21 +1,26 @@
 {
-		"name": "wackywired135/october-iubendapolicycacher",
-		"type": "october-plugin",
-		"description": "Cache your Iubenda privacy policy, and display on your site.",
-		"homepage": "https://www.zacharyschneider.ca/projects",
-		"keywords": [
-			"october", "octobercms", "iubenda", "privacy"
-		],
-		"license": "MIT",
-		"authors": [
-			{
-				"name": "Zach Schneider",
-				"email": "hello@zacharyschneider.ca",
-				"homepage": "https://www.zacharyschneider.ca/"
-			}
-		],
-    "require": {
-        "guzzlehttp/guzzle": "~6.0"
-		},
-		"minimum-stability": "dev"
+  "name": "zaxbux/oc-iubendapolicy-plugin",
+  "type": "october-plugin",
+  "description": "Display your Iubenda privacy and cookie policies.",
+  "homepage": "https://www.zacharyschneider.ca/",
+  "keywords": [
+    "october",
+    "cms",
+    "octobercms",
+    "iubenda",
+    "privacy",
+    "plugin"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Zachary Schneider",
+      "email": "hello@zacharyschneider.ca",
+      "homepage": "https://www.zacharyschneider.ca/"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "minimum-stability": "dev"
 }
