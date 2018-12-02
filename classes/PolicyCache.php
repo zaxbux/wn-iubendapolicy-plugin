@@ -47,11 +47,14 @@ class PolicyCache {
 
 		if ($policyJson['success'] == false) {
 			// An error beyond our control, log it
-			Log::error('Error fetching Iubenda policy.', [
-				'response_code' => $response->getStatusCode(),
-				'error'         => $policyJson['error'],
-				'policy_id'     => $this->policyID
-			]);
+			Log::error(
+				sprintf(
+					'Error fetching Iubenda policy: %s. Response code: %d. Error: "%s"',
+					$this->policyID,
+					$response->getStatusCode(),
+					$policyJson['error']
+				)
+			);
 
 			return 'ERROR: Please check logs.';
 		}
