@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaxbux\Console;
+namespace Zaxbux\IubendaPolicy\Console;
 
 use Zaxbux\IubendaPolicy\Classes\PolicyCache;
 use Illuminate\Console\Command;
