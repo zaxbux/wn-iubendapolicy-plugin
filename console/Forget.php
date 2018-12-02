@@ -12,8 +12,8 @@ class Forget extends Command {
 	public function handle() {
 		$cache = new PolicyCache();
 
-		$this->writeln('Forgetting policies... ');
+		$this->output->write('Forgetting policies... ');
 		$cache->forget();
-		$this->writeln('Done!');
+		$this->output->writeln('Done!');
 	}
 }

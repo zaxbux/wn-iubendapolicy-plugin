@@ -12,8 +12,8 @@ class Update extends Command {
 	public function handle() {
 		$cache = new PolicyCache();
 
-		$this->writeln('Updating policies... ');
+		$this->output->write('Updating policies... ');
 		$cache->update();
-		$this->writeln('Done!');
+		$this->output->writeln('Done!');
 	}
 }
