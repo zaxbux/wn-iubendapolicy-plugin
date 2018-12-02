@@ -6,12 +6,3 @@ fields:
     comment: zaxbux.iubendapolicy::lang.fields.policy_id.comment
     type: text
     required: true
-  policy_style:
-    span: right
-    label: zaxbux.iubendapolicy::lang.fields.policy_style.label
-    comment: zaxbux.iubendapolicy::lang.fields.policy_style.comment
-    type: dropdown
-    options:
-      default: zaxbux.iubendapolicy::lang.fields.policy_style.options.default
-      only-legal: zaxbux.iubendapolicy::lang.fields.policy_style.options.only-legal
-      no-markup: zaxbux.iubendapolicy::lang.fields.policy_style.options.no-markup

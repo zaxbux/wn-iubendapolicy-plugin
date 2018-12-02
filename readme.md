@@ -14,13 +14,6 @@ There are only two options to configure. Each time you save the settings, the po
 
 Your Iubenda policy ID, which can be obtained from your embedding code on the Iubenda dashboard.
 
-### Policy Style
-
-How you want your policy to be displayed.
-* **Default**: Styled privacy policy
-* **Only legal**: Removes icons and most of the CSS
-* **No markup**: Similar to 'Only legal', no extra markup or CSS
-
 ## Components
 
 ### Privacy Policy Component
@@ -62,6 +55,7 @@ These can be used for finding issues with policy retrieval, or for automating th
 
 ## Change Log
 
+* 1.1.1 - Removed incompatible policy style setting
 * 1.1.0 - Renamed plugin & cleaned up code
 * 1.0.4 - Added support for cookie policy
 * 1.0.3 - Localization improvements

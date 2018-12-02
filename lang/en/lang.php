@@ -27,15 +27,6 @@ return [
 			    'required' => 'The Policy ID is required.',
 			    'numeric'  => 'The Policy ID must be a number.',
 		    ]
-	    ],
-	    'policy_style' => [
-		    'label'   => 'Policy Style',
-		    'comment' => 'How the privacy policy should be displayed.',
-		    'options' => [
-			    'default'    => 'Default',
-			    'only-legal' => 'Only legal',
-			    'no-markup'  => 'No markup',
-		    ]
 	    ]
     ]
 ];

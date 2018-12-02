@@ -14,17 +14,14 @@ use Zaxbux\IubendaPolicy\Models\Settings;
 class PolicyCache {
 
 	const IUBENDA_BASE_URL = 'https://www.iubenda.com/api/privacy-policy';
+	const IUBENDA_POLICY_STYLE = 'no-markup';
 
+	private $policyID;
 	private $cachePrivacyKey;
 	private $cacheCookieKey;
-	private $policyID;
-	private $policyStyle;
 
 	public function __construct() {
 		$this->policyID        = Settings::get('policy_id', null);
-		$this->policyStyle     = str_replace('default', '',
-			Settings::get('policy_style', 'no-markup')
-		);
 		$this->cachePrivacyKey = sprintf('iubenda_policy_%s_content', $this->policyID);
 		$this->cacheCookieKey  = sprintf('iubenda_cookie_policy_%s_content', $this->policyID);
 	}
@@ -102,7 +99,7 @@ class PolicyCache {
 		$url = sprintf(
 			self::IUBENDA_BASE_URL . '/%s/%s',
 			$this->policyID,
-			$this->policyStyle
+			self::IUBENDA_POLICY_STYLE
 		);
 
 		return $this->fetchPolicy($url);
@@ -116,7 +113,7 @@ class PolicyCache {
 		$url = sprintf(
 			self::IUBENDA_BASE_URL . '/%s/cookie-policy/%s',
 			$this->policyID,
-			$this->policyStyle
+			self::IUBENDA_POLICY_STYLE
 		);
 
 		$html           = $this->fetchPolicy($url);
