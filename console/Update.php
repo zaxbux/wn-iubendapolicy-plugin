@@ -12,7 +12,7 @@ class Update extends Command {
 	public function handle() {
 		$cache = new PolicyCache();
 
-		$this->write('Updating policies... ');
+		$this->writeln('Updating policies... ');
 		$cache->update();
 		$this->writeln('Done!');
 	}

@@ -12,7 +12,7 @@ class Forget extends Command {
 	public function handle() {
 		$cache = new PolicyCache();
 
-		$this->write('Forgetting policies... ');
+		$this->writeln('Forgetting policies... ');
 		$cache->forget();
 		$this->writeln('Done!');
 	}
