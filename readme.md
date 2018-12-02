@@ -42,6 +42,16 @@ url = "/cookies"
 {% component 'iubendaCookiePolicy' %}
 ```
 
+### Cookie Solution Component
+
+The `iubendaCookieSolution` component allows your cookie solution embed code to be displayed on any page.
+
+If you place this component in a layout, your cookie solution will display on every page that uses the layout.
+
+```
+{% component 'iubendaCookieSolution' %}
+```
+
 ## Errors
 
 If there is an error when retrieving the policy, generic error messages will displayed in place of a policy. Extra information is logged in the backend.
@@ -55,6 +65,7 @@ These can be used for finding issues with policy retrieval, or for automating th
 
 ## Change Log
 
+* 1.1.2 - Added basic support for cookie solution
 * 1.1.1 - Removed incompatible policy style setting
 * 1.1.0 - Renamed plugin & cleaned up code
 * 1.0.4 - Added support for cookie policy

@@ -17,7 +17,11 @@ return [
 	    'iubendaCookiePolicy'  => [
 		    'name'        => 'Cookie Policy',
 		    'description' => 'Display your Iubenda cookie policy.',
-	    ]
+	    ],
+	    'iubendaCookieSolution' => [
+		    'name'        => 'Cookie Solution',
+		    'description' => 'Embed your Iubenda cookie solution.',
+	    ],
     ],
     'fields' => [
 	    'policy_id'    => [
@@ -26,7 +30,11 @@ return [
 		    'validation' => [
 			    'required' => 'The Policy ID is required.',
 			    'numeric'  => 'The Policy ID must be a number.',
-		    ]
-	    ]
-    ]
+		    ],
+	    ],
+	    'cookie_embed' => [
+		    'label'   => 'Iubenda Cookie Solution Embed',
+		    'comment' => 'The embed code for your cookie solution from the Iubenda dashboard.',
+	    ],
+    ],
 ];

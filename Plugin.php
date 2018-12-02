@@ -30,8 +30,9 @@ class Plugin extends PluginBase {
 	 */
 	public function registerComponents() {
 		return [
-			'Zaxbux\IubendaPolicy\Components\IubendaPrivacyPolicy' => 'iubendaPrivacyPolicy',
-			'Zaxbux\IubendaPolicy\Components\IubendaCookiePolicy'  => 'iubendaCookiePolicy',
+			'Zaxbux\IubendaPolicy\Components\IubendaPrivacyPolicy'  => 'iubendaPrivacyPolicy',
+			'Zaxbux\IubendaPolicy\Components\IubendaCookiePolicy'   => 'iubendaCookiePolicy',
+			'Zaxbux\IubendaPolicy\Components\IubendaCookieSolution' => 'iubendaCookieSolution',
 		];
 	}
 

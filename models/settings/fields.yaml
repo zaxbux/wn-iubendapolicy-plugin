@@ -6,3 +6,12 @@ fields:
     comment: zaxbux.iubendapolicy::lang.fields.policy_id.comment
     type: text
     required: true
+
+  cookie_embed:
+    label: zaxbux.iubendapolicy::lang.fields.cookie_embed.label
+    comment: zaxbux.iubendapolicy::lang.fields.cookie_embed.comment
+    type: codeeditor
+    language: html
+    size: small
+    showGutter: false
+    required: false
