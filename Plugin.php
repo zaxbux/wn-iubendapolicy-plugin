@@ -19,8 +19,8 @@ class Plugin extends PluginBase {
 		return [
 			'name'        => 'zaxbux.iubendapolicy::lang.plugin.name',
 			'description' => 'zaxbux.iubendapolicy::lang.plugin.description',
-			'author'      => 'zaxbux',
-			'icon'        => 'oc-icon-shield',
+			'author'      => 'Zachary Schneider ',
+			'icon'        => 'icon-shield',
 			'homepage'    => 'https://www.zacharyschneider.ca/'
 		];
 	}
