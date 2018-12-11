@@ -16,6 +16,8 @@ Your Iubenda policy ID, which can be obtained from your embedding code on the Iu
 
 ## Components
 
+These components are also available as snippets for the [Static Pages](https://octobercms.com/plugin/rainlab-pages) plugin.
+
 ### Privacy Policy Component
 
 The `iubendaPrivacyPolicy` component allows your privacy policy to be displayed on any page.
@@ -65,6 +67,7 @@ These can be used for finding issues with policy retrieval, or for automating th
 
 ## Change Log
 
+* 1.1.3 - Added support for static pages snippets
 * 1.1.2 - Added basic support for cookie solution
 * 1.1.1 - Removed incompatible policy style setting
 * 1.1.0 - Renamed plugin & cleaned up code

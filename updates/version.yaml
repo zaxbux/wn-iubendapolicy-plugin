@@ -5,3 +5,4 @@
 1.1.0: Renamed plugin & cleaned up code
 1.1.1: Removed incompatible policy style setting
 1.1.2: Added basic support for cookie solution
+1.1.3: Added support for static pages snippets

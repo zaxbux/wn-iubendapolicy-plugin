@@ -37,6 +37,13 @@ class Plugin extends PluginBase {
 	}
 
 	/**
+	 * Register static page snippets
+	 */
+	public function registerPageSnippets() {
+		return $this->registerComponents();
+	}
+
+	/**
 	 * @{inheritDoc}
 	 */
 	public function registerPermissions() {
