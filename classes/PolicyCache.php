@@ -32,11 +32,14 @@ class PolicyCache {
 	 * @return string
 	 */
 	private static function convertSmartQuotes($str) {
+		// UTF-8
 		$search = [
-			chr(145), // Left single quote
-            chr(146), // Right single quote
-            chr(147), // Left double quote
-            chr(148), // Right double quote
+			"\xe2\x80\x98", // Left single quote
+			"\xe2\x80\x99", // Right single quote
+			"\xe2\x80\x9c", // Left double quote
+			"\xe2\x80\x9d", // Right double quote
+			"\xe2\x80\x93", // EN Dash
+			"\xe2\x80\x94", // EM Dash
 		];
 
 		$replace = [
@@ -44,6 +47,8 @@ class PolicyCache {
 			"'",
 			'"',
 			'"',
+			'&ndash;',
+			'&mdash;'
 		];
 
 		return \str_replace($search, $replace, $str);
@@ -57,7 +62,7 @@ class PolicyCache {
 	private static function removeInlineJS($html) {
 		$document       = new \DOMDocument();
 		$internalErrors = libxml_use_internal_errors(true);
-		$document->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
+		$document->loadHTML('<?xml encoding="utf-8" ?>'.$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
 		libxml_use_internal_errors($internalErrors); // Restore error level
 
 		$xpath = new \DOMXPath($document);
@@ -68,8 +73,8 @@ class PolicyCache {
 		}
 
 		// remove onClick attributes on a elements
-		foreach ($xpath->query('//a[@onClick]') as $element) {
-			$element->parentNode->removeChild($element);
+		foreach ($xpath->query('//a[@onclick]') as $element) {
+			$element->removeAttribute('onclick');
 		}
 
 		return $document->saveHTML($document->documentElement);
@@ -105,14 +110,15 @@ class PolicyCache {
 			return 'ERROR: Please check logs.';
 		}
 
-		// Convert smart quotes to regular quotes
-		$policyContent = self::convertSmartQuotes($json['content']);
+		$policyContent = $policyJson['content'];
 
 		if (Settings::get('remove_js')) {
 			$policyContent = self::removeInlineJS($policyContent);
 		}
 
-		return $policyContent;
+		// Convert smart quotes to regular quotes
+		// THIS MUST BE CALLED AFTER REMOVING INLINE JS, otherwise encoding madness
+		return self::convertSmartQuotes($policyContent);
 	}
 
 	/**
@@ -174,7 +180,7 @@ class PolicyCache {
 		$html           = $this->fetchPolicy($url);
 		$document       = new \DOMDocument();
 		$internalErrors = libxml_use_internal_errors(true);
-		$document->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
+		$document->loadHTML('<?xml encoding="utf-8" ?>'.$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
 		libxml_use_internal_errors($internalErrors); // Restore error level
 
 		// remove "view complete policy" link
