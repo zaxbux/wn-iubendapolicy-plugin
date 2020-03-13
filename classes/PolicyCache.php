@@ -4,6 +4,7 @@ namespace Zaxbux\IubendaPolicy\Classes;
 
 use Log;
 use Cache;
+use Carbon\Carbon;
 use GuzzleHttp\Client as GuzzleClient;
 use Zaxbux\IubendaPolicy\Models\Settings;
 
@@ -21,7 +22,14 @@ class PolicyCache {
 	private $cacheCookieKey;
 
 	public function __construct() {
-		$this->policyID        = Settings::get('policy_id', null);
+		$this->policyID = Settings::get('policy_id');
+		$this->setCacheKeys();
+	}
+
+	/**
+	 * Set the cache keys
+	 */
+	private function setCacheKeys() {
 		$this->cachePrivacyKey = sprintf('iubenda_policy_%s_content', $this->policyID);
 		$this->cacheCookieKey  = sprintf('iubenda_cookie_policy_%s_content', $this->policyID);
 	}
@@ -147,7 +155,7 @@ class PolicyCache {
 		}
 
 		// Update the cache
-		Cache::forever($key, $policyContent);
+		Cache::put($key, $policyContent, Carbon::now()->addDays(7));
 
 		return $policyContent;
 	}
@@ -214,8 +222,9 @@ class PolicyCache {
 	 * Download a fresh version of the policy
 	 */
 	public function update() {
-		Cache::forever($this->cachePrivacyKey, $this->fetchPrivacyPolicy());
-		Cache::forever($this->cacheCookieKey, $this->fetchCookiePolicy());
+		$this->setCacheKeys();
+		Cache::put($this->cachePrivacyKey, $this->fetchPrivacyPolicy(), Carbon::now()->addDays(7));
+		Cache::put($this->cacheCookieKey, $this->fetchCookiePolicy(), Carbon::now()->addDays(7));
 	}
 
 	/**
