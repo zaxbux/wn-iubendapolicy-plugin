@@ -50,6 +50,32 @@ class PolicyCache {
 	}
 
 	/**
+	 * Remove inline javascript
+	 * @param string $html
+	 * @return string
+	 */
+	private static function removeInlineJS($html) {
+		$document       = new \DOMDocument();
+		$internalErrors = libxml_use_internal_errors(true);
+		$document->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // load HTML
+		libxml_use_internal_errors($internalErrors); // Restore error level
+
+		$xpath = new \DOMXPath($document);
+
+		// Remove <script> elements
+		foreach ($xpath->query('//script') as $element) {
+			$element->parentNode->removeChild($element);
+		}
+
+		// remove onClick attributes on a elements
+		foreach ($xpath->query('//a[@onClick]') as $element) {
+			$element->parentNode->removeChild($element);
+		}
+
+		return $document->saveHTML($document->documentElement);
+	}
+
+	/**
 	 * Fetch a policy from Iubenda
 	 * @param $url
 	 * @return string
@@ -80,7 +106,13 @@ class PolicyCache {
 		}
 
 		// Convert smart quotes to regular quotes
-		return self::convertSmartQuotes($json['content']);
+		$policyContent = self::convertSmartQuotes($json['content']);
+
+		if (Settings::get('remove_js')) {
+			$policyContent = self::removeInlineJS($policyContent);
+		}
+
+		return $policyContent;
 	}
 
 	/**

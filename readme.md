@@ -8,7 +8,13 @@ You must have a PRO subscription attached to your privacy policy in order to acc
 
 ## Plugin Settings
 
-There are only two options to configure. Each time you save the settings, the policy is removed from the cache and downloaded.
+| Setting               |                                                                                                                                                    |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Policy ID**         | Your public Iubenda policy ID provided by your privacy policy embedding options.                                                                   |
+| **Remove JavaScript** | By default, the Iubenda policy content has inline JavaScript present, which can cause issues when using a CSP. Enable to reomve inline JavaScript. |
+| **Cookie Solution**   | Paste your Iubenda cookie policy here to embed it using an October CMS component.                                                                  |
+
+Each time you save the settings, the policy is removed from the cache and re-downloaded.
 
 ### Policy ID
 
@@ -67,6 +73,7 @@ These can be used for finding issues with policy retrieval, or for automating th
 
 ## Change Log
 
+* 1.1.4 - Bug fix, and ability to remove javascript from policy content
 * 1.1.3 - Added support for static pages snippets
 * 1.1.2 - Added basic support for cookie solution
 * 1.1.1 - Removed incompatible policy style setting

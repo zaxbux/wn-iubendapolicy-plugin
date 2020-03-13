@@ -6,3 +6,4 @@
 1.1.1: Removed incompatible policy style setting
 1.1.2: Added basic support for cookie solution
 1.1.3: Added support for static pages snippets
+1.1.4: Bug fix, and ability to remove javascript from policy content

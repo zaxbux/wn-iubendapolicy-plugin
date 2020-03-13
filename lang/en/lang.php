@@ -36,5 +36,9 @@ return [
 		    'label'   => 'Iubenda Cookie Solution Embed',
 		    'comment' => 'The embed code for your cookie solution from the Iubenda dashboard.',
 	    ],
+		'remove_js' => [
+		    'label'   => 'Remove JavaScript',
+		    'comment' => 'Remove inline JavaScript from the policy content provided by Iubenda. Useful when you also have a CSP.',
+	    ],
     ],
 ];

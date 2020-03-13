@@ -1,16 +1,22 @@
 fields:
 # Required attributes
   policy_id:
-    span: left
+    type: text
     label: zaxbux.iubendapolicy::lang.fields.policy_id.label
     comment: zaxbux.iubendapolicy::lang.fields.policy_id.comment
-    type: text
+    span: left
     required: true
-
+  
+  remove_js:
+    type: checkbox
+    label: zaxbux.iubendapolicy::lang.fields.remove_js.label
+    comment: zaxbux.iubendapolicy::lang.fields.remove_js.comment
+    span: right
+  
   cookie_embed:
+    type: codeeditor
     label: zaxbux.iubendapolicy::lang.fields.cookie_embed.label
     comment: zaxbux.iubendapolicy::lang.fields.cookie_embed.comment
-    type: codeeditor
     language: html
     size: small
     showGutter: false
