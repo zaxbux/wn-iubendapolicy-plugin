@@ -27,6 +27,29 @@ class PolicyCache {
 	}
 
 	/**
+	 * Convert smart/curly quotes to regular quotes
+	 * @param string $str
+	 * @return string
+	 */
+	private static function convertSmartQuotes($str) {
+		$search = [
+			chr(145), // Left single quote
+            chr(146), // Right single quote
+            chr(147), // Left double quote
+            chr(148), // Right double quote
+		];
+
+		$replace = [
+			"'",
+			"'",
+			'"',
+			'"',
+		];
+
+		return \str_replace($search, $replace, $str);
+	}
+
+	/**
 	 * Fetch a policy from Iubenda
 	 * @param $url
 	 * @return string
@@ -56,8 +79,8 @@ class PolicyCache {
 			return 'ERROR: Please check logs.';
 		}
 
-		// Success!
-		return iconv('UTF-8', 'ASCII//TRANSLIT', $policyJson['content']); // Convert irregular quotes
+		// Convert smart quotes to regular quotes
+		return self::convertSmartQuotes($json['content']);
 	}
 
 	/**
